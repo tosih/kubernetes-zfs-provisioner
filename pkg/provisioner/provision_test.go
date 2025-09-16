@@ -13,11 +13,10 @@ import (
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"sigs.k8s.io/sig-storage-lib-external-provisioner/v10/controller"
+	"sigs.k8s.io/sig-storage-lib-external-provisioner/v11/controller"
 )
 
 func TestProvisionNfs(t *testing.T) {
-
 	expectedShareProperties := "rw=@10.0.0.0/8"
 	expectedHost := "host"
 	expectedDatasetName := "test/volumes/pv-testcreate"
@@ -76,7 +75,6 @@ func assertBasics(t *testing.T, stub *zfsStub, pv *v1.PersistentVolume, expected
 }
 
 func TestProvisionHostPath(t *testing.T) {
-
 	expectedDatasetName := "test/volumes/pv-testcreate"
 	expectedDataset := &zfs.Dataset{
 		Name:       expectedDatasetName,

@@ -6,12 +6,13 @@ import (
 	"bufio"
 	"context"
 	"flag"
-	"k8s.io/klog/v2"
 	"math/rand"
 	"os"
 	"strconv"
 	"strings"
 	"testing"
+
+	"k8s.io/klog/v2"
 
 	gozfs "github.com/mistifyio/go-zfs/v3"
 
@@ -21,15 +22,13 @@ import (
 	v1 "k8s.io/api/core/v1"
 	storagev1 "k8s.io/api/storage/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
-	"sigs.k8s.io/sig-storage-lib-external-provisioner/v10/controller"
+	"sigs.k8s.io/sig-storage-lib-external-provisioner/v11/controller"
 
 	"github.com/ccremer/kubernetes-zfs-provisioner/pkg/provisioner"
 	"github.com/ccremer/kubernetes-zfs-provisioner/pkg/zfs"
 )
 
-var (
-	parentDataset = flag.String("parentDataset", "", "parent dataset")
-)
+var parentDataset = flag.String("parentDataset", "", "parent dataset")
 
 type ProvisionTestSuit struct {
 	suite.Suite

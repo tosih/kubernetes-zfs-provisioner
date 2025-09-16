@@ -3,15 +3,16 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/ccremer/kubernetes-zfs-provisioner/pkg/provisioner"
-	"k8s.io/klog/v2"
 	"net/http"
 	"os"
 	"strconv"
 
+	"github.com/ccremer/kubernetes-zfs-provisioner/pkg/provisioner"
+	"k8s.io/klog/v2"
+
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
-	"sigs.k8s.io/sig-storage-lib-external-provisioner/v10/controller"
+	"sigs.k8s.io/sig-storage-lib-external-provisioner/v11/controller"
 )
 
 const (
@@ -64,8 +65,9 @@ func main() {
 		http.Redirect(w, r, "/metrics", http.StatusMovedPermanently)
 	})
 
+	ctx := context.Background()
 	pc := controller.NewProvisionController(
-		log,
+		ctx,
 		clientset,
 		settings.ProvisionerInstance,
 		p,
@@ -87,7 +89,7 @@ func loadEnvironmentVariables() {
 		provisionerInstanceKey: "pv.kubernetes.io/zfs",
 	}
 
-	for key, _ := range defaults {
+	for key := range defaults {
 		value, found := os.LookupEnv(fmt.Sprintf("%s%s", prefix, key))
 		if found {
 			defaults[key] = value
