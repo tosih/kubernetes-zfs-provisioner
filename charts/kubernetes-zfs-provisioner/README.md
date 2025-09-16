@@ -1,13 +1,13 @@
 # kubernetes-zfs-provisioner
 
-![Version: 2.2.1](https://img.shields.io/badge/Version-2.2.1-informational?style=flat-square)
+![Version: 2.2.2](https://img.shields.io/badge/Version-2.2.2-informational?style=flat-square)
 
 Dynamic ZFS persistent volume provisioner for Kubernetes
 
 ## Installation
 
 ```bash
-helm repo add zfs-provisioner https://ccremer.github.io/kubernetes-zfs-provisioner
+helm repo add zfs-provisioner https://tosih.github.io/kubernetes-zfs-provisioner
 helm install kubernetes-zfs-provisioner zfs-provisioner/kubernetes-zfs-provisioner
 ```
 
@@ -32,12 +32,12 @@ Document your changes in values.yaml and let `make docs:helm` generate this sect
 | hostAliases | object | `{}` | A dict with `{ip, hostnames array}` to configure custom entries in /etc/hosts. See [values.yaml](./values.yaml) for an example. |
 | image.pullPolicy | string | `"Always"` |  |
 | image.registry | string | `"ghcr.io"` | Container image registry |
-| image.repository | string | `"ccremer/zfs-provisioner"` | Location of the container image |
-| image.tag | string | `"v1"` | Container image tag |
+| image.repository | string | `"tosih/zfs-provisioner"` | Location of the container image |
+| image.tag | string | `"v2.2.2"` | Container image tag |
 | imagePullSecrets | list | `[]` |  |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` | Reminder: This has no effect on any PVs, but maybe you want the provisioner pod running on certain nodes. |
-| podSecurityContext | object | `{}` | If you encounter **issues with SSH, set `podSecurityContext.fsGroup=100`**, as the SSH files might not be readable to the container user `zfs` with uid 100. |
+| podSecurityContext.fsGroup | int | `100` |  |
 | provisioner.instance | string | `"pv.kubernetes.io/zfs"` | Provisoner instance name if multiple are running (multiple instances are not required for managing multiple ZFS hosts) |
 | rbac.create | bool | `false` | **Required for first time deployments** Grant the service account the necessary permissions, |
 | replicaCount | int | `1` | Usually `1` is fine |

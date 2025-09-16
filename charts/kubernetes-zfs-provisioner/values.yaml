@@ -7,11 +7,11 @@ replicaCount: 1
 
 image:
   # -- Location of the container image
-  repository: ccremer/zfs-provisioner
+  repository: tosih/zfs-provisioner
   # -- Container image registry
   registry: ghcr.io
   # -- Container image tag
-  tag: v1
+  tag: v2.2.2
   pullPolicy: Always
 
 imagePullSecrets: []
@@ -96,10 +96,9 @@ rbac:
   # the necessary permissions,
   create: false
 
-# -- If you encounter **issues with SSH, set `podSecurityContext.fsGroup=100`**, as the SSH
-# files might not be readable to the container user `zfs` with uid 100.
-podSecurityContext: {}
-  # fsGroup: 100
+# Container switches over to user `zfs` with uid `100`. Mounted secret must match owner.
+podSecurityContext:
+  fsGroup: 100
 
 securityContext: {}
   # capabilities:
