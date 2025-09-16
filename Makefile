@@ -1,4 +1,5 @@
 SHELL := /usr/bin/env bash
+DOCKER := docker
 
 # Disable built-in rules
 MAKEFLAGS += --no-builtin-rules
@@ -21,7 +22,7 @@ build: ## Builds the binary
 
 .PHONY: build\:docker
 build\:docker: build ## Builds the docker image
-	docker build -t $(IMAGE_REPOSITORY):$(IMAGE_TAG) -f docker/Dockerfile .
+	$(DOCKER) build -t $(IMAGE_REPOSITORY):$(IMAGE_TAG) -f docker/Dockerfile .
 
 .PHONY: install\:zfs
 install\:zfs: ## Installs zfs-on-linux and nfs-kernel-server (requires sudo)
